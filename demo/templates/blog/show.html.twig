@@ -1,11 +1,31 @@
+{# heritier du template de base #}
 {% extends 'base.html.twig' %}
+
+{# ettendre le block body #}
 {% block body %}
-    <article>
-        <h2> {{ article.title }} </h2>
-        <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la categorie Politique </div>
-        <div class="content">
+    <div class="container">
+            <h2> {{ article.title }} </h2>
+            <div class="metadata">{{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la categorie {{ article.category.title }}</div>
             <img src="{{ article.image }}" alt="">
-            {{ article.content | raw }}
-        </div>
-    </article>
+            <div class="content">
+                {{ article.content | raw }}
+               <hr>
+               <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi, repellendus saepe eos vero consequatur dolore sit dolorem ut quae quibusdam corporis, at eveniet, cupiditate necessitatibus aliquid voluptatum eum distinctio consectetur voluptate qui reprehenderit cumque? Esse blanditiis reiciendis, autem enim quas, iusto, incidunt veritatis voluptate odit ducimus explicabo eveniet tempora repellat.</p>
+               <p>Corrupti quidem mollitia eum a ab quibusdam enim, iste ut fuga officia repellat! Laboriosam, culpa consequatur magnam incidunt fugiat ad sed? Veniam architecto explicabo, ratione quia excepturi reiciendis facere assumenda? Totam omnis eius neque optio, a incidunt rem dolorem voluptatibus ex, sint, numquam nobis repellendus eum harum reiciendis ut autem.</p>
+            </div>
+    </div>
+    <section id="commentaires">
+        {% for comment in article.comments %}
+            <div class="comment">
+                <div class="row">
+                    <div class="col-3">
+                        {{ comment.author }} (<small>{{ comment.createdAt | date('d/m/Y à H:i')  }}</small>)
+                    </div>
+                    <div class="col">
+                        {{ comment.content | raw }}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </section>
 {% endblock %}
