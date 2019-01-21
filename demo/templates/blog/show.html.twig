@@ -1,31 +1,48 @@
-{# heritier du template de base #}
 {% extends 'base.html.twig' %}
 
-{# ettendre le block body #}
+
 {% block body %}
-    <div class="container">
-            <h2> {{ article.title }} </h2>
-            <div class="metadata">{{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la categorie {{ article.category.title }}</div>
-            <img src="{{ article.image }}" alt="">
-            <div class="content">
-                {{ article.content | raw }}
-               <hr>
-               <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quasi, repellendus saepe eos vero consequatur dolore sit dolorem ut quae quibusdam corporis, at eveniet, cupiditate necessitatibus aliquid voluptatum eum distinctio consectetur voluptate qui reprehenderit cumque? Esse blanditiis reiciendis, autem enim quas, iusto, incidunt veritatis voluptate odit ducimus explicabo eveniet tempora repellat.</p>
-               <p>Corrupti quidem mollitia eum a ab quibusdam enim, iste ut fuga officia repellat! Laboriosam, culpa consequatur magnam incidunt fugiat ad sed? Veniam architecto explicabo, ratione quia excepturi reiciendis facere assumenda? Totam omnis eius neque optio, a incidunt rem dolorem voluptatibus ex, sint, numquam nobis repellendus eum harum reiciendis ut autem.</p>
-            </div>
-    </div>
-    <section id="commentaires">
-        {% for comment in article.comments %}
+    <section class="articles">
+       <article>
+           <h2>{{ article.title }}</h2>
+           <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la categorie {{ article.category.title}}</div>
+           <div class="content">
+               <img src="{{ article.image }}" alt="">
+               {{ article.content | raw }}
+               <p>Repudiandae, accusantium nostrum cumque non sed atque magni laboriosam aut impedit est illum magnam aspernatur iste praesentium? Deserunt, soluta! Laboriosam, recusandae nisi. Debitis neque quo similique officiis tenetur quaerat quasi, alias recusandae sunt suscipit at laudantium earum consequuntur distinctio voluptatibus odit dolore numquam eos commodi voluptas perferendis vel. Nisi, minima.</p>
+              <hr>
+              <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis illo vitae omnis saepe eveniet in sint architecto quam dolore illum, repellat qui ipsam asperiores fugit ipsa sequi ex cumque fugiat natus incidunt doloribus sit blanditiis, ullam officia. Vitae nam atque nihil itaque eius, exercitationem debitis quod deserunt recusandae rerum quis.</p>
+              <p>Quam minima illo similique pariatur odit nulla architecto quaerat quas dolorum. Doloremque ullam voluptas sed similique accusantium tempora voluptates! Numquam officiis perspiciatis nihil omnis, non, a ipsum error, labore quia odit doloribus quis repellendus corporis ex? Aperiam accusamus veniam dolores beatae corrupti quis! Laudantium itaque labore molestiae veritatis fuga ipsum.</p>
+           </div>
+       </article>
+
+       <section class="commentaires">
+             <h1> {{ article.comments | length }} commentaires:</h1>
+
+            {% for comment in article.comments %}
             <div class="comment">
+           
                 <div class="row">
                     <div class="col-3">
-                        {{ comment.author }} (<small>{{ comment.createdAt | date('d/m/Y à H:i')  }}</small>)
+                        {{ comment.author }} <small>{{ comment.createdAt | date('d/m/Y à H:i') }}</small>
                     </div>
                     <div class="col">
                         {{ comment.content | raw }}
                     </div>
                 </div>
+            {% endfor %}
             </div>
-        {% endfor %}
+       </section>
     </section>
+    {% if app.user %}
+        {{ form_start(commentForm) }}
+        
+        {{ form_row(commentForm.author,{'label':'Auteur','attr':{'placeholder':'VOtre pseudo'}}) }}
+        {{ form_row(commentForm.content,{'label':'Message','attr':{'placeholder':'VOtre Message'}}) }}
+        <button type="submit" class="btn btn-success">Commenter !</button>
+        {{ form_end(commentForm) }}
+    {% else %}
+        <p>Vous ne pouvez pas commenter car vous n'êtes pas connecter !</p>
+        <a href="{{ path('security_login') }}" class="btn btn-primary">Connecter vous !</a>
+    {% endif %}
 {% endblock %}

@@ -1,14 +1,16 @@
-{# heritirr du template de base #}
-{% extends 'base.html.twig' %}
-{# ettendre le block body #}
-{% block body %}
-    <h1>Bienvenue dans ce Blog !</h1>
+{# heritier du template de base #}
+{% extends  'base.html.twig' %}
+
+{% block body  %}
+    <h1>Bienvenue les amis</h1>
+    {# l'interpollation en twig affiche le contenu d'une variable #}
     {{ title }}
+    {# les commandes en twig #}
     {% if age>18 %}
-    <p>Majeur</p>
+        <p>Tu est majeur</p>
     {% else %}
-    <p>Mineur</p>
+        <p>Tu est mineur</p>
     {% endif %}
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, aut magnam mollitia eos dolores quis sit, dolorem pariatur, illo harum alias impedit consequuntur deserunt expedita facere? Repudiandae ipsam praesentium, neque cum possimus nemo architecto amet nisi id officia, reprehenderit atque?</p>
-    <p>Molestiae et quibusdam laudantium, aperiam similique laboriosam aliquam animi deserunt vitae laborum maiores numquam voluptates placeat rem nostrum! Laboriosam sit dolore facere assumenda? Earum distinctio, itaque illo velit quidem amet impedit ad ullam a! Odit hic commodi ipsa voluptate vero.</p>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptas quaerat quo praesentium veritatis aliquam sequi ratione doloremque, ipsum cumque tempora exercitationem unde quod atque. Atque officiis ipsam aliquam labore incidunt et, quod nihil qui autem praesentium eaque soluta sequi eveniet?</p>
+    <p>Repellendus, quis voluptatibus. Asperiores ratione debitis doloribus laborum molestias et, vitae voluptatibus ducimus distinctio illum, enim eius molestiae harum modi laboriosam adipisci inventore delectus animi voluptates temporibus odit quod itaque praesentium. Sit quia distinctio accusantium culpa quam quis, ex enim?</p>
 {% endblock %}

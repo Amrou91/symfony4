@@ -2,18 +2,18 @@
 
 
 {% block body %}
-    <section class="article">
+    <section class="articles">
         {% for article in articles %}
-            <div class="container">
-                <h2>{{ article.title }}</h2>
-                <div class="metadata">{{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la categorie Politique</div>
+        <article>
+            <h2>{{ article.title }}</h2>
+            <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la categorie Politique</div>
+            <div class="content">
                 <img src="{{ article.image }}" alt="">
-                <div class="content">
-                    {{ article.content | raw }}
-                    <p>At sed omnis ipsa sit fugiat autem explicabo ducimus tempore quae, maiores exercitationem deserunt, voluptatum corporis atque non, aspernatur quod facere aperiam. Ex rerum deserunt nostrum similique quis doloremque? Nesciunt, neque adipisci. Aliquid repellat itaque debitis. Dolorum eligendi numquam saepe? Quia, libero doloremque. Asperiores dolorem ullam ducimus libero reiciendis repellendus.</p>
-                    <a href="{{ path('blog_show',{'id':article.id }) }}" class="btn btn-primary">Lire la suite</a>
-                </div>
+                {{ article.content | raw }}
+                <p>Repudiandae, accusantium nostrum cumque non sed atque magni laboriosam aut impedit est illum magnam aspernatur iste praesentium? Deserunt, soluta! Laboriosam, recusandae nisi. Debitis neque quo similique officiis tenetur quaerat quasi, alias recusandae sunt suscipit at laudantium earum consequuntur distinctio voluptatibus odit dolore numquam eos commodi voluptas perferendis vel. Nisi, minima.</p>
+                <a href="{{ path('blog_show',{'id':article.id}) }}" class="btn btn-primary">Lire la suite</a>
             </div>
-        {% endfor %}
+        </article>
+       {% endfor %}
     </section>
 {% endblock %}
