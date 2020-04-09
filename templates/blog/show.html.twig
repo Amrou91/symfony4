@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <article>
+            <h2>{{ article.title }}</h2>
+            <div class="metadata">Ecrit le {{ article.createdAt | date('d/m/Y') }} à {{ article.createdAt | date('H:i') }} dans la categorie {{ article.category.title }}</div>
+            <div class="content">
+                <img src="{{ article.image }}" alt="">
+                {{ article.content | raw }}
+                <hr>
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eligendi blanditiis molestiae omnis officiis tenetur cupiditate vero assumenda tempora obcaecati. Voluptates qui, laborum veniam rem mollitia nam, modi, harum quo omnis a dolorum facilis possimus id debitis est fugiat quia distinctio doloremque? Adipisci similique iusto incidunt qui error odit optio ipsa.</p>
+                <p>Modi beatae, quibusdam similique nemo quidem rerum non, eum, neque numquam facere eos perspiciatis id! Excepturi suscipit tenetur odio voluptatibus ex, consectetur animi ullam nobis in accusamus obcaecati amet atque corrupti voluptas quam non. Corporis repudiandae ex beatae dolores distinctio quidem, accusantium, labore cumque blanditiis quo iure. Quidem, voluptates blanditiis.</p>
+            </div>
+        </article>
+
+        <section>
+            <h1>{{ article.comments | length }} Commentaires</h1>
+            {% for comment in article.comments %}
+            <div class="comment">
+                <div class="row">
+                    <div class="col-3">
+                        <span>{{ comment.author }}</span> {{ comment.createdAt | date('d/m/Y à H:i')}}
+                    </div>
+                    <div class="col">
+                        {{comment.comment | raw }}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            {% if app.user %}
+                {{ form_start(formComment) }}
+                {{ form_row(formComment.author, {
+                    'attr': {
+                        'placeholder': "Author ..."
+                    }
+                })}}
+                {{ form_row(formComment.comment, {
+                    'attr': {
+                        'placeholder': "Comment ..."
+                    }
+                })}}
+                <button type="submit" class="btn btn-success">Commenter !</button>
+                {{ form_end(formComment) }}
+            {% else %}
+                <p>Impossible de commenter, veuillez vous <a href="{{ path('security_login')}}" class="btn btn-success">Connecter !</a></p>
+            {% endif %}
+        </section>
+{% endblock %}
